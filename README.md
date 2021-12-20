@@ -92,6 +92,8 @@ user
 - password: Type: String, Required 
 
 - email：String
+  
+- location: String,(many-to-many)
 
 
 location
