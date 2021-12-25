@@ -13,6 +13,10 @@ urlpatterns = [
     path('attractions_count', attractions_count_by_city), # get attractions count by city name
     path('attractions_list', attractions_list_by_city),
     path('attraction_detail/<xid>/', attraction_detail),
+    path('restaurants_list', restaurants_list), # get restaurants list by location
+    path('restaurant_detail/<id>', restaurant_detail), # get restaurant detail by id
+
+
 ]
 
 router = DefaultRouter()
