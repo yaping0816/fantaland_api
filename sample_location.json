@@ -1,0 +1,32 @@
+[
+    {
+        "state": "WA",
+        "city": "Lacey",
+        "zip": "98516",
+        "restaurants": [
+            {
+                "name": "Hot Ginger",
+                "cushion_type": "Asian",
+                "pic": "url"
+            },
+            {
+                "name": "Hot Ginger2",
+                "cushion_type": "Asian",
+                "pic": "url"
+            }
+        ],
+        "attractions":[
+            {
+                "name": "attraction one",
+                "whatever": "whatever",
+                "pic": "url"
+            },
+            {
+                "name": "attraction two",
+                "whatever": "whatever",
+                "pic": "url"
+            }
+        ]
+    }
+
+]

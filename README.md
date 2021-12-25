@@ -87,11 +87,7 @@ The following fields/data types must be supported by your data model
 
 user
 
-- name: Type: String, Required
-
-- password: Type: String, Required 
-
-- email：String
+- django auth user
   
 - location: String,(many-to-many)
 
@@ -101,18 +97,20 @@ location
 - state: Type: String, Required
 - city: Type: String, Required
 - zip_code: Integer, Required
-- restaurants? (many-to-many relationship)
-- attractions? (many-to-many relationship)
+
+- attractions? (one-to-many relationship)
 
 restaurant
 
 - name: String, Required
-- food_style: String, Required, default=unknown
+- cuisine_type: String, Required, default=unknown
+- location (one-to-many relationship)
 
 attraction
 
 - name: String, Required
 - picture
+- location (one-to-many relationship)
 
 
 
@@ -131,6 +129,8 @@ attraction
       - e.g. GET: api/\<info_type>/all will have a single view, it will be able to forward different info_type requests to different APIs. 
    - need to be able to pack request data based on APIs requirement (Yelp, weather API etc has different keys and data structure requirement)
    - need to support pagination
+   - Attraction API to use [opentripmap api](https://opentripmap.io/docs#/)
+   - Restaurant API to use [Yelp api](https://www.yelp.com/developers/documentation/v3/get_started)
 
 4. build working protected routes for logged in user to save favorite locations along with restaurant and attraction data.
     - create location model

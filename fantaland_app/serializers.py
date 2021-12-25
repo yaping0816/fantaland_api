@@ -2,7 +2,13 @@ from rest_framework import serializers
 from rest_framework_jwt.settings import api_settings
 from django.contrib.auth.models import User
 
+from fantaland_app.models import Location
+
+from .models import *
+
+
 ## Serializes current user
+
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -10,6 +16,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['username']
 
 ## Serializes new user sign ups that responds with the new user's information including a new token.
+
 class UserSerializerWithToken(serializers.ModelSerializer):
 
     token = serializers.SerializerMethodField()
@@ -34,3 +41,35 @@ class UserSerializerWithToken(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['token', 'username', 'password']
+
+
+# Serializer models
+class RestaurantSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Restaurant
+        fields = ['id', 'restaurant_name', 'cuisine_type', 'list', 'image']       
+
+class AttractionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Attraction
+        fields = ['id', 'attraction_name', 'list', 'image']   
+
+class LocationSerializer(serializers.ModelSerializer):
+    # restaurants = RestaurantSerializer(many=True)
+    # attractions = AttractionSerializer(many=True)
+    # travellers = TravellerSerializer(many=True)
+    class Meta:
+        model = Location
+        fields = ['id', 'state', 'city', 'zipcode', 'image', 'list']
+        # def to_representation(self,value):
+        #     return value.state
+
+class LocationListSerializer(serializers.ModelSerializer):
+    locations = LocationSerializer(many=True, read_only=True)
+    class Meta:
+        model = LocationList
+        fields = ['id', 'list_name', 'traveller','locations', 'restaurants', 'attractions']
+
+
+
+
