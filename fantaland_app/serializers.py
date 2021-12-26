@@ -13,7 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['username']
+        fields = ['username', 'id']
 
 ## Serializes new user sign ups that responds with the new user's information including a new token.
 
@@ -40,19 +40,19 @@ class UserSerializerWithToken(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['token', 'username', 'password']
+        fields = ['token', 'username', 'password', 'id']
 
 
 # Serializer models
 class RestaurantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Restaurant
-        fields = ['id', 'restaurant_name', 'cuisine_type', 'list', 'image']       
+        fields = ['id', 'name', 'categories', 'image_url', 'api_id', 'location']       
 
 class AttractionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Attraction
-        fields = ['id', 'attraction_name', 'list', 'image']   
+        fields = ['id', 'api_id','name', 'kinds', 'location']   
 
 class LocationSerializer(serializers.ModelSerializer):
     # restaurants = RestaurantSerializer(many=True)
@@ -60,15 +60,15 @@ class LocationSerializer(serializers.ModelSerializer):
     # travellers = TravellerSerializer(many=True)
     class Meta:
         model = Location
-        fields = ['id', 'state', 'city', 'zipcode', 'image', 'list']
+        fields = ['id', 'country', 'city']
         # def to_representation(self,value):
         #     return value.state
 
-class LocationListSerializer(serializers.ModelSerializer):
-    locations = LocationSerializer(many=True, read_only=True)
+class MyLocationSerializer(serializers.ModelSerializer):
+    # locations = LocationSerializer(many=True, read_only=True)
     class Meta:
-        model = LocationList
-        fields = ['id', 'list_name', 'traveller','locations', 'restaurants', 'attractions']
+        model = MyLocation
+        fields = ['id', 'traveller','location', 'restaurants', 'attractions']
 
 
 

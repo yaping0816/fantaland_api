@@ -21,6 +21,9 @@ restaurant_api_header_auth = {
    "Authorization": "Bearer " + os.environ.get('YELP_API_KEY')
 }
 
+weather_base_url = 'https://api.openweathermap.org/data/2.5/onecall'
+weather_api_key = os.environ.get('OPEN_WEATHER_API_KEY')
+
 # 3rd party API universal requester
 def api_requester(method, url, params, header_auth=None):
     if method == 'GET':
@@ -90,6 +93,21 @@ def restaurant_detail(request, id):
     url = restaurant_base_url + id
     return api_requester(request.method, url, None, restaurant_api_header_auth)
 
+def weather_info(request):
+    url = weather_base_url
+    query = {
+        'appid' : weather_api_key,
+        'lat':request.GET.get('lat', 'unknown'),
+        'lon':request.GET.get('lon','unknown'),
+        'units': 'imperial',
+        'exclude':'minutely,hourly'
+    }
+    return api_requester(request.method, url, query)
+
+
+def add_to_favorite(requests):
+    return HttpResponseNotFound('Not found')
+
 
 ## The core of this functionality is the api_view decorator, which takes a list of HTTP methods that your view should respond to.
 @api_view(['GET'])
@@ -117,9 +135,17 @@ class UserList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class LocationListViewSet(ModelViewSet):
-    queryset = LocationList.objects.all()
-    serializer_class = LocationListSerializer
+class MyLocationViewSet(ModelViewSet):
+
+    model = MyLocation
+
+    serializer_class = MyLocationSerializer
+
+    def get_queryset(self):
+        return MyLocation.objects.filter(traveller=self.request.user)
+
+    def pre_save(self, obj):
+        obj.traveller = self.request.user
 
 class LocationViewSet(ModelViewSet):
     queryset = Location.objects.all()

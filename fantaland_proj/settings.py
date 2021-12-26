@@ -1,3 +1,4 @@
+import datetime
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -131,5 +132,12 @@ REST_FRAMEWORK = {
 CORS_ORIGIN_WHITELIST = ['https://localhost:3000','http://localhost:3000']
 
 JWT_AUTH = {
-    'JWT_RESPONSE_PAYLOAD_HANDLER': 'fantaland_proj.utils.my_jwt_response_handler'
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'fantaland_proj.utils.my_jwt_response_handler',
+    # how long the original token is valid for
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=2),
+    # allow refreshing of tokens
+    'JWT_ALLOW_REFRESH': True,
+    # this is the maximum time AFTER the token was issued that
+    # it can be refreshed.  exprired tokens can't be refreshed.
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=1),
 }

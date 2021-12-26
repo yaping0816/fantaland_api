@@ -9,21 +9,21 @@ urlpatterns = [
     path('login/', obtain_jwt_token), #log in
     path('current_user/', current_user), # get user info by token
     path('signup/', UserList.as_view()), # sign up
-    path('city_info', city_info ), # get city detailed info
-    path('attractions_count', attractions_count_by_city), # get attractions count by city name
-    path('attractions_list', attractions_list_by_city),
+    path('city_info/', city_info ), # get city detailed info
+    path('attractions_count/', attractions_count_by_city), # get attractions count by city name
+    path('attractions_list/', attractions_list_by_city),
     path('attraction_detail/<xid>/', attraction_detail),
-    path('restaurants_list', restaurants_list), # get restaurants list by location
-    path('restaurant_detail/<id>', restaurant_detail), # get restaurant detail by id
-
-
+    path('restaurants_list/', restaurants_list), # get restaurants list by location
+    path('restaurant_detail/<id>/', restaurant_detail), # get restaurant detail by id
+    path('weather_info/', weather_info), # get weather info
+    path('favorite', add_to_favorite) # add anything to favorite
 ]
 
 router = DefaultRouter()
 router.register(r'restaurants', RestaurantViewSet, basename='restaurants')
 router.register(r'attractions', AttractionViewSet, basename='attractions')
 router.register(r'locations', LocationViewSet, basename='locations')
-router.register(r'locationlists', LocationListViewSet, basename='location_lists')
+router.register(r'my_locations', MyLocationViewSet, basename='my_locations')
 
 urlpatterns += router.urls
 
