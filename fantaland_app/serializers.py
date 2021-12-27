@@ -1,14 +1,10 @@
 from rest_framework import serializers
 from rest_framework_jwt.settings import api_settings
 from django.contrib.auth.models import User
-
 from fantaland_app.models import Location
-
 from .models import *
 
-
 ## Serializes current user
-
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -60,12 +56,21 @@ class LocationSerializer(serializers.ModelSerializer):
     # travellers = TravellerSerializer(many=True)
     class Meta:
         model = Location
-        fields = ['id', 'country', 'city']
+        fields = ['id', 'country', 'city', 'lat', 'lon']
         # def to_representation(self,value):
         #     return value.state
 
 class MyLocationSerializer(serializers.ModelSerializer):
-    # locations = LocationSerializer(many=True, read_only=True)
+    restaurants = RestaurantSerializer(many=True,read_only=True)
+    attractions = AttractionSerializer(many=True,read_only=True)
+    location = LocationSerializer(read_only=True)
+    traveller = UserSerializer(read_only=True)
+    class Meta:
+        model = MyLocation
+        fields = ['id', 'traveller','location', 'restaurants', 'attractions']
+
+class MyLocationUpdateSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = MyLocation
         fields = ['id', 'traveller','location', 'restaurants', 'attractions']

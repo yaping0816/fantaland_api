@@ -132,13 +132,14 @@ attraction
    - Attraction API to use [opentripmap api](https://opentripmap.io/docs#/)
    - Restaurant API to use [Yelp api](https://www.yelp.com/developers/documentation/v3/get_started)
 
-4. build working protected routes for logged in user to save favorite locations along with restaurant and attraction data.
-    - create location model
-    - logged in user will be able to save a location
-      - user will be able to add restaurant or attractions to that location
-    - logged in user can modify their locations description
-      - user can ONLY modify location description ( not modifying location info, e.g. user can NOT change 98516 to another zip, or change the city name, but the can change the description of 98516)
-      - user can also modify restaurant or attractions descriptions saved under a location
-    - user can delete saved locations along with all restaurant and attractions saved with that location
-      - user can delete individual restaurant or attraction saved under one location
-  
+4. build working protected routes for logged in users to:
+    - Get All MyLocation records @ **GET: /api/my_locations/**
+    - Delete a MyLocation record @ **DELETE: /api/my_locations/\<id>**
+    - Create a new MyLocation record @ **POST: /api/favorite**
+    - Add a new restaurant to a MyLocation record @ **POST: /api/favorite/\<int:my_location_id>/\<target>/**
+      - if the restaurant record exists, add it
+      - if not, make a new record, then add it
+    - remove a restaurant or attraction from MyLocation record @ **favorite/\<int:my_location_id>/\<target>/\<int:target_id>/**
+      - if the attraction record exists, add it
+      - if not, make a new record, then add it
+    
