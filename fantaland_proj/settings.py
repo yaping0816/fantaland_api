@@ -1,5 +1,6 @@
 import datetime
 from pathlib import Path
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -141,3 +142,5 @@ JWT_AUTH = {
     # it can be refreshed.  expired tokens can't be refreshed.
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=1),
 }
+
+django_heroku.settings(locals())
