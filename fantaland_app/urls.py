@@ -6,15 +6,19 @@ from .views import *
 from rest_framework.routers import DefaultRouter
 
 urlpatterns = [
-    # 3rd party api proxy routes
+    # outside api proxy routes
     path('city_info/', city_info ), # get city detailed info
-    path('attractions_count/', attractions_count_by_city), # get attractions count by city name
-    path('attractions_list/', attractions_list_by_city),
-    path('attraction_detail/<xid>/', attraction_detail),
-    path('restaurants_list/', restaurants_list), # get restaurants list by location
-    path('restaurant_detail/<id>/', restaurant_detail), # get restaurant detail by id
+    path('attractions_count/', attractions_count), # get attractions count by city name
+    # path('attractions_list/', attractions_list),
+    # path('attraction_detail/<int:id>/', attraction_detail),
+    # path('restaurants_list/', restaurants_list), # get restaurants list by location
+    # path('restaurant_detail/<int:id>/', restaurant_detail), # get restaurant detail by id
+
+    path('lists/<target>/', process_lists),
+    path('detail/<target>/<id>/', process_detail),
+
     path('weather_info/', weather_info), # get weather info
-    # own api routes
+    # internal api routes
     path('login/', obtain_jwt_token), #log in
     path('current_user/', current_user), # get user info by token
     path('signup/', UserList.as_view()), # sign up

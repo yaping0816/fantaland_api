@@ -22,11 +22,12 @@ def api_requester(method, url, params, header_auth=None):
         api_response = requests.get(url, params, headers = header_auth)
         if api_response.status_code == 200:
             return HttpResponse(api_response, content_type='application/json')
-        
-        return HttpResponseBadRequest('something went wrong')
+        else:
+            return HttpResponseBadRequest('something went wrong')
     else:
         return HttpResponseNotFound('Not found')
 
+@csrf_exempt
 def city_info(request):
     url = attraction_base_url + 'geoname'
     query = {
@@ -35,7 +36,8 @@ def city_info(request):
     }
     return api_requester(request.method, url, query)
 
-def attractions_count_by_city(request):
+@csrf_exempt
+def attractions_count(request):
 
     url = attraction_base_url + 'radius'
     query = {
@@ -48,7 +50,8 @@ def attractions_count_by_city(request):
     }
     return api_requester(request.method, url, query)
  
-def attractions_list_by_city(request):
+
+def attractions_list(request):
     url = attraction_base_url + 'radius'
     query = {
         'apikey': attraction_apikey,
@@ -62,8 +65,8 @@ def attractions_list_by_city(request):
     }
     return api_requester(request.method, url, query)
 
-def attraction_detail(request,xid):
-    url = attraction_base_url + 'xid/' + xid
+def attraction_detail(request,id):
+    url = attraction_base_url + 'xid/' + id
     query = {
         'apikey': attraction_apikey,
     }
@@ -85,6 +88,7 @@ def restaurant_detail(request, id):
     url = restaurant_base_url + id
     return api_requester(request.method, url, None, restaurant_api_header_auth)
 
+@csrf_exempt
 def weather_info(request):
     url = weather_base_url
     query = {
@@ -95,3 +99,23 @@ def weather_info(request):
         'exclude':'minutely,hourly'
     }
     return api_requester(request.method, url, query)
+
+
+@csrf_exempt
+def process_lists(request, target):
+    if target == 'restaurants':
+        return restaurants_list(request)
+    elif target == 'attractions':
+        return attractions_list(request)
+    else:
+        return HttpResponseNotFound('Not Found')
+
+
+@csrf_exempt
+def process_detail(request, target, id):
+    if target == 'restaurant':
+        return restaurant_detail(request, id)
+    elif target == 'attraction':
+        return attraction_detail(request, id)
+    else:
+        return HttpResponseNotFound('Not Found')

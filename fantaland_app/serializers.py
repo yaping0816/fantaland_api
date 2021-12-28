@@ -60,6 +60,7 @@ class LocationSerializer(serializers.ModelSerializer):
         # def to_representation(self,value):
         #     return value.state
 
+# read only, for get method to retrieve all MyLocation records, and DELETE method when deleting one record
 class MyLocationSerializer(serializers.ModelSerializer):
     restaurants = RestaurantSerializer(many=True,read_only=True)
     attractions = AttractionSerializer(many=True,read_only=True)
@@ -69,6 +70,7 @@ class MyLocationSerializer(serializers.ModelSerializer):
         model = MyLocation
         fields = ['id', 'traveller','location', 'restaurants', 'attractions']
 
+# used when creating new MyLocation record, or modifying restaurants and/or attractions in that record
 class MyLocationUpdateSerializer(serializers.ModelSerializer):
     
     class Meta:

@@ -138,6 +138,6 @@ JWT_AUTH = {
     # allow refreshing of tokens
     'JWT_ALLOW_REFRESH': True,
     # this is the maximum time AFTER the token was issued that
-    # it can be refreshed.  exprired tokens can't be refreshed.
+    # it can be refreshed.  expired tokens can't be refreshed.
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=1),
 }

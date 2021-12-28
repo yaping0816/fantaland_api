@@ -8,16 +8,18 @@ I'm building a informational application for travellers --- Fanta Land! In order
 
 1. As a none logged in user, I want to:
    - After entering my destination, app will show the local weather, recommendations of restaurants and attractions. 
-   - Weather should display statically
-   - Restaurants and attractions should only display top 3 choices in their section with a "more" button.
-   - When I click the 'more' button, it will direct the me to a new page with all the list of recommendations. 
+   - Weather should display statically (no interaction with weather widget)
+   - Restaurants and attractions should only display top 10 choices in their section with a "next page" button, also tells me how many items are there
+   - When I click the 'next page' button, it will direct the me to a new page with all the list of recommendations. 
    - When I click any restaurant or attraction card, it will show me the details of it.
 
 2. As a logged in user, I can:
-   - After I log-in, I can see ***myLocations*** button so I can check a list of my favorite locations by clicking the button. 
-   - When click the locations in my list, I will be redirected to see the search result page of the specific location with restaurants, attractions and weather info.
-   - After save my locations under myLocations section. 
+   - After I log-in, I can see ***My Locations*** button so I can check a list of my favorite locations by clicking the button. 
+   - When click the locations in my list, I will see all the restaurants and attractions I saved under that location along with the current weather info.
+   - If there's no restaurant or attraction saved under that location, I'll be redirected to see the search result page of the specific location with restaurants, attractions and weather info.
+   - After save my locations under myLocations section:
      -  I can add / remove locations from my list, so I have the ability to update my list.
+     -  I can add / remove restaurants or attractions to a specific location.
 
 ### The API Server must operate as follows: 
 1. Support all REST/HTTP methods
