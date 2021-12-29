@@ -16,6 +16,9 @@ restaurant_api_header_auth = {
 weather_base_url = 'https://api.openweathermap.org/data/2.5/onecall'
 weather_api_key = os.environ.get('OPEN_WEATHER_API_KEY')
 
+search_radius= os.environ.get('SEARCH_RADIUS')
+search_results_per_page = os.environ.get('SEARCH_RESULTS_PER_PAGE')
+
 # 3rd party API universal requester
 def api_requester(method, url, params, header_auth=None):
     if method == 'GET':
@@ -42,7 +45,7 @@ def attractions_count(request):
     url = attraction_base_url + 'radius'
     query = {
         'apikey': attraction_apikey,
-        'radius': 1600,
+        'radius': search_radius,
         'lat':request.GET.get('lat', 'unknown'),
         'lon':request.GET.get('lon','unknown'),
         'rate':3,
@@ -55,10 +58,10 @@ def attractions_list(request):
     url = attraction_base_url + 'radius'
     query = {
         'apikey': attraction_apikey,
-        'radius': 1600,
+        'radius': search_radius,
         'lat':request.GET.get('lat', 'unknown'),
         'lon':request.GET.get('lon','unknown'),
-        'limit':10,
+        'limit':search_results_per_page,
         'rate':3,
         'offset': int(request.GET.get('page', 1)) - 1,
         'format': 'json'
@@ -77,8 +80,8 @@ def restaurants_list(request):
     query = {
         'latitude':request.GET.get('lat', 'unknown'),
         'longitude':request.GET.get('lon','unknown'),
-        'radius': 1600,
-        'limit':10,
+        'radius': search_radius,
+        'limit':search_results_per_page,
         'offset': int(request.GET.get('page', 1)) - 1,
         'categories':'restaurants'
     }
