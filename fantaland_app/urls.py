@@ -14,7 +14,7 @@ urlpatterns = [
     # path('restaurants_list/', restaurants_list), # get restaurants list by location
     # path('restaurant_detail/<int:id>/', restaurant_detail), # get restaurant detail by id
 
-    path('lists/<target>/', process_lists),
+    path('list/<target>/', process_lists),
     path('detail/<target>/<id>/', process_detail),
 
     path('weather_info/', weather_info), # get weather info
