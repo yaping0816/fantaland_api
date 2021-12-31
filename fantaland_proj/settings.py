@@ -130,7 +130,7 @@ REST_FRAMEWORK = {
     ),
 }
 
-CORS_ORIGIN_WHITELIST = ['https://localhost:3000','http://localhost:3000']
+CORS_ORIGIN_WHITELIST = ['https://localhost:3000','http://localhost:3000', 'https://fantaland-ui.vercel.app']
 
 JWT_AUTH = {
     'JWT_RESPONSE_PAYLOAD_HANDLER': 'fantaland_proj.utils.my_jwt_response_handler',
