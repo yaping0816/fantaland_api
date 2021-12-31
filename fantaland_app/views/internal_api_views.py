@@ -30,8 +30,18 @@ def favorite(request):
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    elif serializer.errors['non_field_errors']:
+        # if the user - location set already exist, find and return it.
+        return Response(find_my_location_record(request.user.id, location_id),status=status.HTTP_200_OK )
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
+def find_my_location_record(user_id, location_id):
+    try:
+        record = MyLocation.objects.get(traveller=user_id, location=location_id)
+        return MyLocationUpdateSerializer(record).data
+    except MyLocation.DoesNotExist:
+        return 0
+
 def find_location_id_or_create_new(location_obj):
     try:
         record = Location.objects.get(lat=location_obj['lat'], lon = location_obj['lon'])
